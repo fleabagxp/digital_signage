@@ -43,7 +43,6 @@ class DemoController extends Controller
             $filename = time().'.'.$image->guessExtension();
 
             $img = Image::make($request->file('slip')->getRealPath());
-
             $img->rotate(-$request->rotate);
 
             $img->stream();
