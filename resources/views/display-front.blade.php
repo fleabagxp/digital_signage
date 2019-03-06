@@ -10,6 +10,11 @@
 				background-repeat:   no-repeat;
 				background-position: top;
 			}
+			header {
+				background-color: black;
+				height: 38vh;
+				width: 100%;
+			}
 			img {
 				width: 100%;
 				height: auto;
@@ -17,38 +22,41 @@
 			video {
 				width: 100%;
 				height: auto;
+				top: 50%;
+				position: relative;
+				transform: translateY(-50%);
 			}
-			.top {
+			.container-fluid {
 				margin: 0;
 				padding: 0;
-				margin-top: 36%;
+			}
+			.top {
+				height: 20vh;
 			}
 			.bottom {
 				margin: 0;
 				padding: 0;			
 			}
 		</style>	
-<body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12 top">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<section class="top"></section>
+			<header>
 				@if(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage1')->first()->position === 'signage1')
-				<video controls autoplay loop>
+				<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
 					<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
 				</video>
 				@elseif(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage1')->first()->position === 'signage1')
 					<img src="{{ $displayImages->where('position', 'signage1')->first()->path }}">
 				@endif
-			</div>
-				
-			<div class="col-md-12 fixed-bottom bottom">
+			</header>
+			<section>
 				@if(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage2')->first()->position === 'signage2')
 					<img src="{{ $displayImages->where('position', 'signage2')->first()->path }}">
 				@endif
-			</div>
+			</section>
 		</div>
-	</div>
-</body>
-</head>
+	</body>
 </html>
 
