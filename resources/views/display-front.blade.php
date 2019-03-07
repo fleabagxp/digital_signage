@@ -12,7 +12,7 @@
 			}
 			header {
 				background-color: black;
-				height: 38vh;
+				height: 42.6vh;
 				width: 100%;
 			}
 			img {
@@ -20,6 +20,13 @@
 				height: auto;
 			}
 			video {
+				width: 100%;
+				height: auto;
+				top: 50%;
+				position: relative;
+				transform: translateY(-50%);
+			}
+			.img-pad {
 				width: 100%;
 				height: auto;
 				top: 50%;
@@ -48,7 +55,7 @@
 					<source src="{{ $displayImages->where('position', 'video1')->first()->path }}" type="video/mp4">
 				</video>
 				@elseif(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage1')->first()->position === 'signage1')
-					<img src="{{ $displayImages->where('position', 'signage1')->first()->path }}">
+					<img class="img-pad" src="{{ $displayImages->where('position', 'signage1')->first()->path }}">
 				@endif
 			</header>
 			<section>
