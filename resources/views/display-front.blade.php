@@ -31,7 +31,7 @@
 				padding: 0;
 			}
 			.top {
-				height: 20vh;
+				height: 15vh;
 			}
 			.bottom {
 				margin: 0;
@@ -43,7 +43,7 @@
 		<div class="container-fluid">
 			<section class="top"></section>
 			<header>
-				@if(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'video1')->first()->position === 'video1')
+				@if(isset($displayImages->where('position', 'video1')->first()->position) && $displayImages->where('position', 'video1')->first()->position === 'video1')
 				<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
 					<source src="{{ $displayImages->where('position', 'video1')->first()->path }}" type="video/mp4">
 				</video>
@@ -52,7 +52,7 @@
 				@endif
 			</header>
 			<section>
-				@if(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage2')->first()->position === 'signage2')
+				@if(isset($displayImages->where('position', 'signage2')->first()->position) && $displayImages->where('position', 'signage2')->first()->position === 'signage2')
 					<img src="{{ $displayImages->where('position', 'signage2')->first()->path }}">
 				@endif
 			</section>
