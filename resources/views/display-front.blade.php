@@ -43,9 +43,9 @@
 		<div class="container-fluid">
 			<section class="top"></section>
 			<header>
-				@if(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage1')->first()->position === 'signage1')
+				@if(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'video1')->first()->position === 'video1')
 				<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-					<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+					<source src="{{ $displayImages->where('position', 'video1')->first()->path }}" type="video/mp4">
 				</video>
 				@elseif(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage1')->first()->position === 'signage1')
 					<img src="{{ $displayImages->where('position', 'signage1')->first()->path }}">
