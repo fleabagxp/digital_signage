@@ -1,18 +1,20 @@
 <!DOCTYPE html>
+<head>
+	<META HTTP-EQUIV="Refresh" Content="591";URL=/display/7">
+</head>
 <html>
 	<head>
 	<title>{{ $display->name }}</title>
 		<link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
 		<style>
 			body {
-				background-image: url("{{ $displayImages->where('position', 'bgimage')->first()->path }}");
+				background-image: url("{{ $displayImages->where('position', 'bgimage')->first() ? $displayImages->where('position', 'bgimage')->first()->path : url('/images/bg.jpg') }}");
 				background-size:     cover;
 				background-repeat:   no-repeat;
 				background-position: top;
 			}
 			header {
-				background-color: black;
-				height: 42.6vh;
+				height: 42vh;
 				width: 100%;
 			}
 			img {
@@ -66,4 +68,3 @@
 		</div>
 	</body>
 </html>
-
