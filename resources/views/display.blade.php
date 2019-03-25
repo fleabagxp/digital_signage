@@ -5,7 +5,7 @@
 		<link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
 		<style>
 			body {
-				background-image: url("{{ $displayImages->where('position', 'bgimage')->first()->path }}");
+				background-image: url("{{ $displayImages->where('position', 'bgimage')->first() ? $displayImages->where('position', 'bgimage')->first()->path : url('/images/bg.jpg') }}");
 				background-size:     cover;
 				background-repeat:   no-repeat;
 				background-position: top;
