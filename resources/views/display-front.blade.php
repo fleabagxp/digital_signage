@@ -9,8 +9,8 @@
 		<style>
 			body {
 				background-image: url("{{ $displayImages->where('position', 'bgimage')->first() ? $displayImages->where('position', 'bgimage')->first()->path : url('/images/bg.jpg') }}");
-				background-size:     cover;
-				background-repeat:   no-repeat;
+				background-size: cover;
+				background-repeat: no-repeat;
 				background-position: top;
 			}
 			header {
