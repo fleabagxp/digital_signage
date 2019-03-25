@@ -14,7 +14,7 @@
 				background-position: top;
 			}
 			header {
-				height: 42vh;
+				height: 43vh;
 				width: 100%;
 			}
 			img {
@@ -40,7 +40,7 @@
 				padding: 0;
 			}
 			.top {
-				height: 15vh;
+				height: 14vh;
 			}
 			.bottom {
 				margin: 0;
