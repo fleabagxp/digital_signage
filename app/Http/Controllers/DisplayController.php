@@ -24,10 +24,24 @@ class DisplayController extends Controller
     public function show($id)
     {
         $display = Display::find($id);
-        $displayImages = DisplayImage::where('display_id', $id)
-            ->groupBy('position')
-            ->get();
         
+        switch($display->name) {
+            case 'Mandarin Front':
+            case 'Mandarin A':
+            case 'Mandarin BUD':
+            case 'Mandarin C':
+                $displayImages = DisplayImage::where('display_id', $id)
+                    ->groupBy('position')
+                    ->get();
+                break;
+            default:
+                $displayGroupIds = Display::where('name', '<>', 'Mandarin Front')->pluck('id');
+                $displayImages = DisplayImage::whereIn('display_id', $displayGroupIds)
+                    ->groupBy('position')
+                    ->get();
+                break;
+        }
+
         if($display->name == 'Mandarin Front')
             return view('display-front')->withDisplay($display)->withDisplayImages($displayImages);
 

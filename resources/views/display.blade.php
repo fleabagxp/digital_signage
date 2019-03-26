@@ -39,7 +39,6 @@
 						<img src="{{ $displayImage->path }}">
 					@endif
 				</div>
-				
 			@endforeach
 		</div>
 	</div>
