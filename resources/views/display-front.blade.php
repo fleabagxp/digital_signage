@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<head>
-	<META HTTP-EQUIV="Refresh" Content="591";URL=/display/7">
-</head>
 <html>
 	<head>
-	<title>{{ $display->name }}</title>
+		<title>{{ $display->name }}</title>
+		<meta HTTP-EQUIV="Refresh" Content="591";URL="/display/{{ $display->id }}">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
 		<style>
 			body {
