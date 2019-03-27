@@ -43,41 +43,21 @@
 			<div class="row">
 				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img class="d-block w-100" src="https://futureforwardparty.org/wp-content/uploads/2018/10/product-02.jpg" alt="First slide">
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="https://futureforwardparty.org/wp-content/uploads/2018/10/product-02.jpg" alt="Second slide">
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="https://futureforwardparty.org/wp-content/uploads/2018/10/product-02.jpg" alt="Third slide">
-						</div>
 						@php
 							$i = 0;
 						@endphp
 						@foreach($displayImages as $displayImage)
-							$i++;
-							@if($displayImage->position === 'signage1')
+							@php
+								$i++;
+							@endphp
+							@if($displayImage->position === 'signage1' || $displayImage->position === 'signage2')
 								<div class="carousel-item {{$i == 1 ? 'active' : ''}}">
-									<img class="d-block w-100" src="https://futureforwardparty.org/wp-content/uploads/2018/10/product-02.jpg" alt="Third slide">
+									<img class="d-block w-100" src="{{ $displayImage->path }}">
 								</div>
 							@endif
 						@endforeach
 					</div>
 				</div>
-				@foreach($displayImages as $displayImage)
-					<div class="col-md-12 top">
-						@if($displayImage->position === 'signage1')
-							<img src="{{ $displayImage->path }}" style="height: 520px;">
-						@endif
-					</div>
-					
-					<div class="col-md-12 fixed-bottom bottom">
-						@if($displayImage->position === 'signage2')
-							<img src="{{ $displayImage->path }}">
-						@endif
-					</div>
-				@endforeach
 			</div>
 		</div>
 	</body>
