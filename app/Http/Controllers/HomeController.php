@@ -29,152 +29,102 @@ class HomeController extends Controller
     }
     public function save(Request $request)
     {
-        if($request->hasFile('bgimage'))
-            $this->saveBgData($request);
-
-        if($request->hasFile('signage1'))
-            $this->saveImage1Data($request);
-
-        if($request->hasFile('signage2'))
-            $this->saveImage2Data($request);
-
-        if($request->hasFile('video1'))
-            $this->saveVideo1Data($request);
-        
-        if($request->hasFile('video2'))
-            $this->saveVideo1Data($request);
-
-        return redirect()->back()->with('status', "บันทึกสำเร็จ");
-    }
-    private function saveBgData(Request $request)
-    {
         $displayImage = new DisplayImage();
         $displayImage->display_id = $request->display;
-        $displayImage->name = $request->file('bgimage')->getClientOriginalName();
-        $displayImage->position = 'bgimage';
-        $displayImage->path = '';
-        
         $displayImage->save();
+
+        if($request->hasFile('bgimage'))
+            $this->saveBgImage($request, $displayImage->id);
+
+        if($request->hasFile('signage1'))
+            $this->saveimage1Image($request, $displayImage->id);
+
+        if($request->hasFile('signage2'))
+            $this->saveimage2Image($request, $displayImage->id);
+
+        if($request->hasFile('video1'))
+            $this->saveVideo1($request, $displayImage->id);
         
-        $this->saveBgImage($request, $displayImage->id);
+        if($request->hasFile('video2'))
+            $this->saveVideo2($request, $displayImage->id);
+
+        return redirect()->back()->with('status', "บันทึกสำเร็จ");
     }
     
     private function saveBgImage(Request $request, $id)
     {
         $displayImage = DisplayImage::find($id);
+
         $bgimage = $request->file('bgimage');
-        $name = $id . '.jpg';
+        $name = 'bgimage_' . $id . '.jpg';
         $img = Image::make($bgimage->getRealPath());
         $img->resize(1920, 1080, function ($constraint) {
             $constraint->aspectRatio();            
         });
         $img->stream();
         Storage::disk('public_images')->put($displayImage->display_id . '/' . $name, $img);
-        $displayImage->path = '/images/displays/' . $request->display . '/' .  $name;
-        $displayImage->save();
-    }
 
-    private function saveImage1Data(Request $request)
-    {
-        $displayImage = new DisplayImage();
-        $displayImage->display_id = $request->display;
-        $displayImage->name = $request->file('signage1')->getClientOriginalName();
-        $displayImage->position = 'signage1';
-        $displayImage->path = '';
-        
+        $displayImage->bg_path = '/images/displays/' . $request->display . '/' .  $name;
         $displayImage->save();
-        
-        $this->saveimage1Image($request, $displayImage->id);
     }
     
     private function saveimage1Image(Request $request, $id)
     {
         $displayImage = DisplayImage::find($id);
+
         $image1 = $request->file('signage1');
-        $name = $id . '.jpg';
+        $name = 'signage1_' . $id . '.jpg';
         $img = Image::make($image1->getRealPath());
         $img->resize(820, 1505, function ($constraint) {
             $constraint->aspectRatio();            
         });
         $img->stream();
         Storage::disk('public_images')->put($displayImage->display_id . '/' . $name, $img);
-        $displayImage->path = '/images/displays/' . $request->display . '/' .  $name;
-        $displayImage->save();
-    }
 
-    private function saveImage2Data(Request $request)
-    {        
-        $displayImage = new DisplayImage();
-        $displayImage->display_id = $request->display;
-        $displayImage->name = $request->file('signage2')->getClientOriginalName();
-        $displayImage->position = 'signage2';
-        $displayImage->path = '';
-        
+        $displayImage->signage1_path = '/images/displays/' . $request->display . '/' .  $name;
         $displayImage->save();
-        
-        $this->saveimage2Image($request, $displayImage->id);
     }
     
     private function saveimage2Image(Request $request, $id)
     {
         $displayImage = DisplayImage::find($id);
+
         $image2 = $request->file('signage2');
-        $name = $id . '.jpg';
+        $name = 'signage2_' . $id . '.jpg';
         $img = Image::make($image2->getRealPath());
         $img->resize(820, 1505, function ($constraint) {
             $constraint->aspectRatio();            
         });
         $img->stream();
         Storage::disk('public_images')->put($displayImage->display_id . '/' . $name, $img);
-        $displayImage->path = '/images/displays/' . $request->display . '/' .  $name;
-        $displayImage->save();
-    }
 
-    private function saveVideo1Data(Request $request)
-    {
-        $displayImage = new DisplayImage();
-        $displayImage->display_id = $request->display;
-        $displayImage->name = $request->file('video1')->getClientOriginalName();
-        $displayImage->position = 'video1';
-        $displayImage->path = '';
-        
+        $displayImage->signage2_path = '/images/displays/' . $request->display . '/' .  $name;
         $displayImage->save();
-        
-        $this->saveVideo1($request, $displayImage->id);
     }
 
     private function saveVideo1(Request $request, $id)
     {
         $displayImage = DisplayImage::find($id);
+
         $video1 = $request->file('video1');
-        $name = $id . '.' . $request->video1->getClientOriginalExtension();
+        $name = 'video1_' . $id . '.' . $request->video1->getClientOriginalExtension();
        
         Storage::disk('public_images')->putFileAs($displayImage->display_id, $video1, $name);
-        $displayImage->path = '/images/displays/' . $request->display . '/' .  $name;
-        $displayImage->save();
-    }
 
-    private function saveVideo2Data(Request $request)
-    {
-        $displayImage = new DisplayImage();
-        $displayImage->display_id = $request->display;
-        $displayImage->name = $request->file('video2')->getClientOriginalName();
-        $displayImage->position = 'video2';
-        $displayImage->path = '';
-        
+        $displayImage->video1_path = '/images/displays/' . $request->display . '/' .  $name;
         $displayImage->save();
-        
-        $this->saveVideo2($request, $displayImage->id);
     }
 
     private function saveVideo2(Request $request, $id)
     {
         $displayImage = DisplayImage::find($id);
+
         $video2 = $request->file('video2');
-        $name = $id . '.' . $request->video2->getClientOriginalExtension();
+        $name = 'video2_' .$id . '.' . $request->video2->getClientOriginalExtension();
        
         Storage::disk('public_images')->putFileAs($displayImage->display_id, $video2, $name);
-        $displayImage->path = '/images/displays/' . $request->display . '/' .  $name;
+
+        $displayImage->video2_path = '/images/displays/' . $request->display . '/' .  $name;
         $displayImage->save();
     }
 }

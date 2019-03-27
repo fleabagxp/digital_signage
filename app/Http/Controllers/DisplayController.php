@@ -27,17 +27,17 @@ class DisplayController extends Controller
         
         switch($display->name) {
             case 'Mandarin Front':
+                $displayImages = DisplayImage::where('display_id', $id);
+                break;
             case 'Mandarin A':
             case 'Mandarin BUD':
             case 'Mandarin C':
                 $displayImages = DisplayImage::where('display_id', $id)
-                    ->groupBy('position')
                     ->get();
                 break;
             default:
                 $displayGroupIds = Display::where('name', '<>', 'Mandarin Front')->pluck('id');
                 $displayImages = DisplayImage::whereIn('display_id', $displayGroupIds)
-                    ->groupBy('position')
                     ->get();
                 break;
         }

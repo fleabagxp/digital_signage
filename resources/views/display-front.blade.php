@@ -7,7 +7,7 @@
 		<link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
 		<style>
 			body {
-				background-image: url("{{ $displayImages->where('position', 'bgimage')->first() ? $displayImages->where('position', 'bgimage')->first()->path : url('/images/bg.jpg') }}");
+				background-image: url("{{ $displayImages->first() && $displayImages->first()->bg_path ? $displayImages->latest()->first()->bg_path : url('/images/bg.jpg') }}");
 				background-size: cover;
 				background-repeat: no-repeat;
 				background-position: top;
@@ -51,17 +51,17 @@
 		<div class="container-fluid">
 			<section class="top"></section>
 			<header>
-				@if(isset($displayImages->where('position', 'video1')->first()->position) && $displayImages->where('position', 'video1')->first()->position === 'video1')
+				@if($displayImages->first() && $displayImages->first()->video1_path)
 				<video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-					<source src="{{ $displayImages->where('position', 'video1')->first()->path }}" type="video/mp4">
+					<source src="{{ $displayImages->latest()->first()->video1_path }}" type="video/mp4">
 				</video>
-				@elseif(isset($displayImages->where('position', 'signage1')->first()->position) && $displayImages->where('position', 'signage1')->first()->position === 'signage1')
-					<img class="img-pad" src="{{ $displayImages->where('position', 'signage1')->first()->path }}">
+				@elseif($displayImages->first() && $displayImages->first()->signage1_path)
+					<img class="img-pad" src="{{ $displayImages->latest()->first()->signage1_path }}">
 				@endif
 			</header>
 			<section>
-				@if(isset($displayImages->where('position', 'signage2')->first()->position) && $displayImages->where('position', 'signage2')->first()->position === 'signage2')
-					<img src="{{ $displayImages->where('position', 'signage2')->first()->path }}">
+				@if($displayImages->first() && $displayImages->first()->signage2_path)
+					<img src="{{ $displayImages->latest()->first()->signage2_path }}">
 				@endif
 			</section>
 		</div>
