@@ -16,6 +16,8 @@ Route::Auth();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@save')->name('save');
 
+Route::get('/manages', 'DisplayManageController@index')->name('manage');
+
 Route::get('/display/{id}', 'DisplayController@show')->name('display');
 
 Route::get('/demos/jquery-image-upload','DemoController@showJqueryImageUpload');
