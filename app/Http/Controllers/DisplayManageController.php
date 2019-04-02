@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Image;
 use Validator;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -44,7 +45,19 @@ class DisplayManageController extends Controller
         return view('display-manage')->withDisplays($displays);
     }
 
-    public function getDisplayImagesByID($id)
+    public function delete($id)
+    {
+        try {
+            $displayImages = DisplayImage::find($id);
+            $displayImages->delete();
+
+            return redirect()->back()->with('success', "ลบสไลด์สำเร็จ");
+        } catch(Exception $exception) {
+            return redirect()->back()->with('error', "ไม่สามารถลบสไลด์ได้" . $exception->message);
+        }
+    }
+
+    private function getDisplayImagesByID($id)
     {
         if($id == 0)
             return redirect()->back();

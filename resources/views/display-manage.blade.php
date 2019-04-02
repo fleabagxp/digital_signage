@@ -1,6 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="reject" method="POST" action="">
+                @method('DELETE') 
+				@csrf
+                
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalTitle">{{__('ลบสไลด์')}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">  
+                    <div class="form-group">
+                        <label for="deleteModal">{{__('ต้องการลบสไลด์ใช่หรือไม่')}}</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{__('ยกเลิก')}}</button>
+                    <button type="submit" class="btn btn-danger">{{__('ลบ')}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
 	<div class="row justify-content-center">
         <div class="col-md-8">
@@ -8,9 +35,13 @@
                 <div class="card-header">Manage Slide</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('success'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ session('success') }}
+                        </div>
+					@elseif (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
                         </div>
                     @endif
 
@@ -40,12 +71,13 @@
 							<thead>
 								<tr>
 									<th scope="col">#</th>
-									<th scope="col">Display Name</th>
-									<th scope="col">Background</th>
-									<th scope="col">Signage 1</th>
-									<th scope="col">Signage 2</th>
-									<th scope="col">Video 1</th>
-									<th scope="col">Video 2</th>
+									<th>Display Name</th>
+									<th>Background</th>
+									<th>Signage 1</th>
+									<th>Signage 2</th>
+									<th>Video 1</th>
+									<th>Video 2</th>
+									<th>Delete</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -92,18 +124,27 @@
 												<img src="{{ url('/images/noimage.jpg') }}"  class="img-thumbnail">
 											@endif
 										</td>
+										<td>
+											<button class="btn btn-danger" onclick="javascript:deleteModal('{{ route('manage.delete', $displayImage->id) }}')" data-toggle="modal" data-target="#deleteModal">ลบ</button>
+										</td>
 									</tr>
 								@endforeach
 							</tbody>
 						</table>
-					
-						<form method="POST" enctype="multipart/form-data">
-							
-						</form>
 					@endif
 				</div>
         	</div>
     	</div>
 	</div>
 </div>
+@endsection
+
+@section('customJS')
+<script>
+	function deleteModal(deleteUrl)
+    {
+        var approveModal = $('#deleteModal');
+        approveModal.find('form').attr('action', deleteUrl);
+    }
+</script>
 @endsection

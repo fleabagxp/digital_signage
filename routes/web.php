@@ -17,6 +17,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'HomeController@save')->name('save');
 
 Route::get('/manages', 'DisplayManageController@index')->name('manage');
+Route::delete('/manage/{id}', 'DisplayManageController@delete')->name('manage.delete');
 
 Route::get('/display/{id}', 'DisplayController@show')->name('display');
 
