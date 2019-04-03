@@ -31,8 +31,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manage-Slides</a>
+                        <li class="nav-item my-auto {{ Request::is('home') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('Upload Slide') }}</a>
+                        </li>
+
+                        <li class="nav-item my-auto {{ Request::is('manages') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('manage') }}">{{ __('Manage Slides') }}</a>
                         </li>
                     </ul>
 
