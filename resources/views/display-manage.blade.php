@@ -49,7 +49,7 @@
 						<div class="form-group row">
                             <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Select screen</label>
                             <div class="col-sm-8">
-                                <select class="form-control form-control-sm" name="display">
+                                <select class="form-control form-control-sm" name="display" id="display">
 									<option value="0">เลือกจอ</option>
                                     @foreach($displays as $display)
 										@if(isset($displayID) && $displayID == $display->id)
@@ -60,8 +60,9 @@
                                     @endforeach
                                 </select>
                             </div>
-							<div class="col-sm-1">
+							<div class="col-sm-2">
 								<button type="submit" class="btn btn-primary btn-sm">Manage</button>
+								<a role="button" href="#" onclick="javascript:openPreview()" class="btn btn-secondary btn-sm">Preview</a>
 							</div>
                         </div>
 					</form>
@@ -146,5 +147,15 @@
         var approveModal = $('#deleteModal');
         approveModal.find('form').attr('action', deleteUrl);
     }
+
+	function openPreview()
+	{
+		var displayID = $("#display").val();
+
+		if(parseInt(displayID) !== 0)
+			window.open('/display/' + displayID, '_blank');
+		else
+			alert("Please select display.");
+	}
 </script>
 @endsection
