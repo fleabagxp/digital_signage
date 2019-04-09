@@ -69,7 +69,14 @@ class DisplayManageController extends Controller
             case 'Mandarin A':
             case 'Mandarin BUD':
             case 'Mandarin C':
+            case 'Mandarin B':
                 $displayImages = DisplayImage::where('display_id', $id)
+                    ->get();
+                break;
+            case 'Mandarin M':
+            case 'Mandarin P':
+                $displayGroupIds = Display::where('name', 'Mandarin M')->orWhere('name', 'Mandarin P')->pluck('id');
+                $displayImages = DisplayImage::whereIn('display_id', $displayGroupIds)
                     ->get();
                 break;
             default:
